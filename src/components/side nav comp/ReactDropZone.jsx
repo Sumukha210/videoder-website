@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-const ReactDropZone = ({ setVideoFileFun }) => {
+const ReactDropZone = ({ setVideoFile }) => {
 	const onDrop = useCallback(acceptedFiles => {
-		acceptedFiles[0].type === 'video/mp4' && setVideoFileFun(acceptedFiles[0]);
+		acceptedFiles[0].type === 'video/mp4' && setVideoFile(acceptedFiles[0]);
 	}, []);
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
