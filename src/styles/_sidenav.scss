@@ -1,0 +1,84 @@
+.sideNav {
+  position: absolute;
+  right: 0%;
+  top: 0;
+  min-height: 200vh;
+  min-width: 10%;
+  background-color: $bg-navbar;
+
+  z-index: $sidenav-index;
+
+  @include breakpoint-down(small) {
+    width: 20vw;
+  }
+
+  @include breakpoint-down(xs) {
+    min-width: 30vw;
+  }
+
+  &__menu {
+    margin-top: 4rem;
+    min-height: 70vh;
+    width: 100%;
+    li {
+      list-style: none;
+
+      &.active {
+        background-color: darken($bg-secondary, 5%);
+        // height: 10vh;
+        padding: 15px 0px;
+        width: 100%;
+      }
+
+      @include breakpoint-down(small) {
+        @include Flex(column, space-around);
+        padding: 0px 10px;
+        text-align: center;
+      }
+      &:not(:first-child) {
+        margin-top: 7rem;
+        @include breakpoint-down(small) {
+          margin-top: 4rem;
+        }
+      }
+
+      &:first-child {
+        margin-top: 7rem;
+        a {
+          @include breakpoint-down(small) {
+            font-size: 0.7rem;
+          }
+
+          img {
+            height: 30px;
+            width: 30px;
+          }
+        }
+        @include breakpoint-down(small) {
+          margin-top: 7rem;
+        }
+      }
+      a {
+        text-transform: uppercase;
+        color: $text-light;
+        text-decoration: none;
+        padding: 0px 20px;
+        @include breakpoint-down(small) {
+          font-size: 0.8rem;
+        }
+      }
+      .iconify {
+        margin: 5px 15px;
+        font-size: 2rem;
+        @include breakpoint-down(small) {
+          font-size: 1.4rem;
+          font-weight: bolder;
+        }
+      }
+      // .true {
+      //   position: relative;
+      //   color: $bg-secondary;
+      // }
+    }
+  }
+}

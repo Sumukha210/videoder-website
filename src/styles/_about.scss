@@ -1,0 +1,94 @@
+.About {
+  @include Container;
+  color: $text-light;
+
+  &__videoder {
+    width: 80%;
+    border-radius: 10px;
+    min-height: 25vh;
+    @include breakpoint-down(xs) {
+      width: 70%;
+    }
+
+    background-color: $bg-navbar;
+    .title {
+      font-size: $heading-3;
+      font-weight: bold;
+      font-style: normal;
+      padding-top: 1rem;
+      span {
+        color: $bg-light;
+      }
+      @include breakpoint-down(small) {
+        font-size: 1.4rem;
+      }
+      @include breakpoint-down(small) {
+        font-size: 1.2rem;
+      }
+    }
+    .content {
+      padding-top: 1.2rem;
+      color: $text-gray;
+      padding-right: 3rem;
+      letter-spacing: 1px;
+      line-height: 2.3rem;
+      padding-bottom: 20px;
+
+      @include breakpoint-down(small) {
+        font-size: 0.8rem;
+        line-height: 2rem;
+        padding-right: 0rem;
+        letter-spacing: 1px;
+      }
+      @include breakpoint-down(small) {
+        width: 100%;
+        font-size: 0.7rem;
+        padding-right: 0;
+        line-height: 2rem;
+      }
+    }
+  }
+  &__choose-us {
+    border-radius: 10px;
+    width: 80%;
+    min-height: 45vh;
+    background-color: $bg-navbar;
+    .title {
+      font-size: $heading-3;
+      font-weight: bold;
+      font-style: normal;
+      span {
+        color: $bg-light;
+      }
+      @include breakpoint-down(xs) {
+        font-size: 1.2rem;
+        line-height: 2rem;
+      }
+    }
+
+    .card {
+      margin-top: 2rem;
+      background-color: $bg-primary;
+      height: 20vh;
+      &__title {
+        color: $bg-light !important;
+        font-weight: bold;
+      }
+      &-text {
+        color: $text-gray;
+        font-size: 0.9rem !important;
+        letter-spacing: 1px;
+      }
+
+      @include breakpoint-down(large) {
+        height: 25vh;
+      }
+      @include breakpoint-down(medium) {
+        height: 30vh;
+      }
+      @include breakpoint-down(xs) {
+        width: 95%;
+      }
+    }
+  }
+}

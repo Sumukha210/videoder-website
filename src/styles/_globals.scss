@@ -1,0 +1,151 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $primary-family;
+	background-color: $bg-primary;
+	min-height: 100vh;
+	@include breakpoint-up(large) {
+		overflow: hidden !important;
+	}
+}
+.App {
+	max-width: 100vw;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.customBtn {
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	background-color: $bg-secondary;
+	border: none;
+	outline: none;
+	color: $text-light;
+	font-weight: 900;
+	transition: all 0.3s ease-in-out;
+
+	&__large {
+		padding: 1rem 2.2rem;
+	}
+
+	&__small {
+		font-size: 0.8rem;
+		font-weight: bold;
+		letter-spacing: 1px;
+		padding: 1rem 1.2rem;
+	}
+	&:hover,
+	&:focus {
+		outline: none !important;
+		background-color: darken($bg-secondary, 5%) !important;
+	}
+
+	@include breakpoint-down(xs) {
+		font-size: 0.8rem;
+		padding: 0.6rem 1rem;
+	}
+}
+
+.SpinnerContainer {
+	min-height: 50vh;
+	width: 20%;
+	margin: 0 auto;
+	@include Flex(row, initial);
+}
+
+.download__video {
+	color: $text-light;
+	.downloadLink {
+		color: $bg-secondary;
+		font-weight: bolder;
+		font-size: 1.1rem;
+		letter-spacing: 1px;
+	}
+}
+
+.fileuploader__area {
+	margin-top: 3rem;
+	.file__input {
+		width: 30vw;
+		height: 50vh;
+		border: 4px dashed $bg-light;
+		outline: none !important;
+		@include Flex(row, center);
+		text-align: center;
+		p {
+			width: 90%;
+			margin: auto;
+			line-height: 2rem;
+			letter-spacing: 2px;
+			color: $text-gray;
+		}
+		@include breakpoint-down(medium) {
+			width: 70%;
+		}
+		@include breakpoint-down(small) {
+			width: 70%;
+			height: 40vh !important;
+			margin-top: -2rem;
+			margin-bottom: 3rem;
+		}
+
+		@include breakpoint-down(xs) {
+			width: 70%;
+			height: 30vh !important;
+			margin-top: -6rem;
+			margin-bottom: 2rem;
+			p {
+				font-size: 0.7rem;
+			}
+		}
+	}
+
+	figure {
+		position: relative;
+		overflow: hidden;
+		box-shadow: $light-shadow;
+		max-width: 85%;
+		video {
+			width: 100%;
+		}
+		.cancelVideo {
+			position: absolute;
+			top: 2%;
+			right: 0%;
+			color: $text-light;
+			font-weight: bolder;
+			border: none;
+			outline: none;
+			padding: 0.5rem 1rem;
+			background: $bg-secondary;
+		}
+		@include breakpoint-down(small) {
+			max-width: 70%;
+		}
+	}
+}
+
+
+.progress {
+	border-radius: 20px !important;
+	height: 20px;
+	width: 70% !important;
+	&-bar {
+		background-color: $bg-light !important;
+	}
+	@include breakpoint-down(large) {
+		width: 80% !important;
+	}
+
+	@include breakpoint-down(xs) {
+		width: 70% !important;
+		height: 15px;
+	}
+}

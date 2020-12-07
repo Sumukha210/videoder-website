@@ -1,0 +1,104 @@
+.Home {
+  position: relative;
+  color: $text-light;
+  max-height: 100vh;
+  overflow: hidden !important;
+
+  &__container {
+    @include Container;
+    margin-top: 3rem;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+    font-size: $heading-1;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 2px;
+    @include breakpoint-down(medium) {
+      width: 80%;
+    }
+
+    @include breakpoint-down(small) {
+      width: 80%;
+      font-size: $heading-2;
+    }
+    @include breakpoint-down(xs) {
+      margin-top: 4rem;
+      font-size: 1.4rem;
+      width: 70%;
+    }
+  }
+
+  &__subtitle {
+    font-size: $heading-3;
+    font-style: normal;
+    font-weight: bold;
+    color: $text-gray;
+
+    @include breakpoint-down(medium) {
+      width: 70%;
+    }
+
+    @include breakpoint-down(small) {
+      font-size: $heading-4;
+      width: 60%;
+    }
+    @include breakpoint-down(xs) {
+      width: 70%;
+    }
+  }
+
+  .customBtn {
+    margin-top: 2rem;
+  }
+
+  .hero__img {
+    @include breakpoint-down(large) {
+      height: 25rem !important;
+    }
+
+    @include breakpoint-down(medium) {
+      margin-top: 1rem;
+      height: 400px !important;
+      width: 70%;
+      object-fit: fill;
+      margin-left: -4rem;
+    }
+
+    @include breakpoint-down(small) {
+      max-height: 296px;
+      width: 80%;
+      object-fit: fill;
+    }
+    @include breakpoint-down(xs) {
+      margin-top: 2rem;
+      margin-left: -10vw;
+      max-height: 170px;
+      max-width: 75%;
+      object-fit: fill;
+    }
+  }
+  footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0%;
+    text-align: center;
+    background-color: $bg-navbar;
+    padding: 10px;
+    color: $text-gray;
+    @include breakpoint-down(small) {
+      text-align: left;
+      font-size: 0.6rem;
+      padding: 25px 10px;
+    }
+  }
+}
+@media screen and (max-width: 990px) and (min-width: 740px) {
+  .hero__img {
+    max-height: 220px !important;
+    max-width: 80%;
+    margin-top: -3rem;
+    object-fit: cover;
+  }
+}

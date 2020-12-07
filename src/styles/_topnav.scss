@@ -1,0 +1,44 @@
+.topNav {
+  background-color: $bg-navbar;
+  position: relative;
+  z-index: $topnav-index;
+
+  &__nav {
+    padding: 0.6rem 0;
+    @include Container;
+    @include Flex(row, space-between);
+  }
+
+  &__logo {
+    img {
+      height: 40px;
+      @include breakpoint-down(xs) {
+        // width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 5%;
+    right: 20%;
+    @include Flex(row, space-between);
+    li {
+      margin-top: 10px;
+      margin-left: 50px;
+      list-style: none;
+
+      i {
+        font-size: 1.5rem;
+        color: $text-light;
+      }
+      @include breakpoint-down(xs) {
+        margin-left: 30px;
+        i {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
