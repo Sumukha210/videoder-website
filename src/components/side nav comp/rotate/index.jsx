@@ -1,88 +1,124 @@
-import React, { useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import ReactDropZone from '../ReactDropZone';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import CustomInput from '../../common/CustomInput';
+import React, { useCallback, useEffect, useState } from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import ReactDropZone from "../ReactDropZone";
+import { fetchFile } from "@ffmpeg/ffmpeg";
+import Video from "../../common/Video";
+import DownloadLink from "../../common/DownloadLink";
+import ConvertNowBtn from "../../common/ConvertNowBtn";
+import CustomProgressBar from "../../common/CustomProgressBar";
+import RangeSlider from "../../common/RangeSlider";
 
-const Rotate = () => {
-	const [videoFile, setVideoFile] = useState();
-	const [progressVisibility, setProgressVisibility] = useState(false);
-	const [completedNow, setCompletedNow] = useState(0);
+const Rotate = ({ ffmpeg }) => {
+  const [videoFile, setVideoFile] = useState();
+  const [rangeInputVal, setRangeInputVal] = useState(15);
+  const [progressVisibility, setProgressVisibility] = useState(false);
+  const [completedNow, setCompletedNow] = useState(0);
+  const [convertedVideo, setConvertedVideo] = useState();
 
-	const handleCancelBtn = () => {
-		setVideoFile(null);
-	};
+  console.log("rotate COMPONENT");
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		const rotatedValue = e.target.rotate.value;
+  const convertFun = async num => {
+    // Write the file to memory
+    ffmpeg.FS("writeFile", "test.mp4", await fetchFile(videoFile));
 
-		setTimeout(() => {
-			setProgressVisibility(true);
-		}, 200);
+    // Run the FFMpeg command
+    await ffmpeg.run(
+      "-i",
+      "test.mp4",
+      "-filter:v",
+      `rotate=${num}*PI/180`,
+      "out.mp4"
+    );
 
-		console.log(rotatedValue);
-	};
+    // Read the result
+    const data = ffmpeg.FS("readFile", "out.mp4");
 
-	console.log('rotate video', videoFile);
+    // Create a URL
+    const url = URL.createObjectURL(
+      new Blob([data.buffer], { type: "video/mp4" })
+    );
+    setConvertedVideo(url);
+  };
 
-	return (
-		<div className="rotate">
-			<div className="rotate__container">
-				<Row className="align-items-center justify-content-center">
-					<Col md={12} sm={12} lg={6} className="fileuploader__area">
-						{videoFile ? (
-							<figure>
-								<video controls src={URL.createObjectURL(videoFile)} />
-								<button className="cancelVideo" onClick={handleCancelBtn}>
-									X
-								</button>
-							</figure>
-						) : (
-							<ReactDropZone setVideoFile={setVideoFile} />
-						)}
-					</Col>
+  useEffect(() => {
+    ffmpeg.setProgress(({ ratio }) => {
+      console.log("completed now is", parseFloat(ratio) * 100);
+      setCompletedNow(Math.round(parseFloat(ratio) * 100));
+    });
+  }, [ffmpeg]);
 
-					<Col md={12} sm={12} lg={6}>
-						<div className="rotate__content">
-							<div className="options">
-								<div className="options__container">
-									<form onSubmit={handleSubmit}>
-										<CustomInput name="rotate" />
+  const handleRangeInput = useCallback(
+    e => {
+      setRangeInputVal(e.target.value);
+    },
+    [setRangeInputVal]
+  );
 
-										<Form.Group>
-											<button type="submit" className="customBtn customBtn__small">
-												Start conversion
-											</button>
-										</Form.Group>
-									</form>
-								</div>
-							</div>
+  const handleCancelBtn = useCallback(() => {
+    setVideoFile(null);
+    setProgressVisibility(false);
+  }, [setVideoFile]);
 
-							<Form.Group>
-								{progressVisibility && (
-									<ProgressBar animated now={completedNow} label={`${completedNow} %`} />
-								)}
-							</Form.Group>
+  const handleSubmit = e => {
+    e.preventDefault();
 
-							<Form.Group className="download__video">
-								{completedNow === 100 && (
-									<p>
-										Video is successfully converted.{' '}
-										<a href="#" className="downloadLink">
-											Click here to download
-										</a>{' '}
-									</p>
-								)}
-							</Form.Group>
-						</div>
-					</Col>
-				</Row>
-			</div>
-		</div>
-	);
+    setTimeout(() => {
+      setProgressVisibility(true);
+    }, 200);
+
+    convertFun(e.target.range.value);
+
+    console.log(e.target.range.value);
+  };
+
+  return (
+    <div className="rotate">
+      <div className="rotate__container">
+        <Row className="align-items-center justify-content-center">
+          <Col md={12} sm={12} lg={6} className="fileuploader__area">
+            {videoFile ? (
+              <Video videoFile={videoFile} handleCancelBtn={handleCancelBtn} />
+            ) : (
+              <ReactDropZone setVideoFile={setVideoFile} />
+            )}
+          </Col>
+
+          <Col md={12} sm={12} lg={6}>
+            <div className="rotate__content">
+              <form onSubmit={handleSubmit}>
+                <Form.Group className="choose__quality">
+                  <Form.Label>Rotate angle:-</Form.Label>
+
+                  <RangeSlider
+                    min="15"
+                    max="180"
+                    step="15"
+                    rangeInputVal={rangeInputVal}
+                    handleRangeInput={handleRangeInput}
+                  />
+                </Form.Group>
+
+                <ConvertNowBtn videoFile={videoFile} />
+              </form>
+
+              <CustomProgressBar
+                progressVisibility={progressVisibility}
+                completedNow={completedNow}
+              />
+
+              <DownloadLink
+                completedNow={completedNow}
+                convertedVideo={convertedVideo}
+                videoFile={videoFile}
+              />
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
 };
 
 export default Rotate;

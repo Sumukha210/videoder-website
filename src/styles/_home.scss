@@ -7,6 +7,9 @@
   &__container {
     @include Container;
     margin-top: 3rem;
+    @include breakpoint-down(xs) {
+      margin-top: 0rem;
+    }
   }
 
   &__title {

@@ -39,22 +39,22 @@ const SideNav = () => {
           </li>
 
           <li className="sideNavLink">
-            <NavLink activeClassName="true" exact to="/scale">
-              <span
-                className="iconify"
-                data-icon="ic:round-crop-free"
-                data-inline="false"></span>
-              scale
-            </NavLink>
-          </li>
-
-          <li className="sideNavLink">
             <NavLink activeClassName="true" exact to="/crop">
               <span
                 className="iconify"
                 data-icon="bi:crop"
                 data-inline="false"></span>
               crop
+            </NavLink>
+          </li>
+
+          <li className="sideNavLink">
+            <NavLink activeClassName="true" exact to="/gif">
+              <span
+                className="iconify"
+                data-icon="ri:file-gif-line"
+                data-inline="false"></span>
+              Gif Converter
             </NavLink>
           </li>
         </ul>

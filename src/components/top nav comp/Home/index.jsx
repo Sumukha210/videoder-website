@@ -8,12 +8,19 @@ const Home = () => {
 
   const handleKnowMoreBtn = () => history.push("/about");
 
+  const mobileWidth = 600;
+
   useEffect(() => {
     document.querySelector(".Home").style.overFlow = "hidden";
   }, []);
 
   return (
-    <div className="Home">
+    <div
+      className="Home"
+      style={{
+        maxHeight: "90vh",
+        overflow: window.innerWidth <= mobileWidth ? "hidden" : "auto",
+      }}>
       <div className="Home__container">
         <Row
           className="hero"

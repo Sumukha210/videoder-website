@@ -1,55 +1,76 @@
 .rotate {
-	color: $text-light;
-	min-height: 100vh;
-	overflow-x: hidden;
-	max-width: 90vw !important;
-	&__container {
-		@include Container;
-		margin-top: 5rem;
-	}
+  color: $text-light;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 90vw !important;
 
-	&__content {
-		.options {
-		
-			&__container {
-				margin-top: 2rem;
-				margin-bottom: 1rem;
-				width: 80%;
-				input[type='number'] {
-					display: inline-block;
-					width:100%;
-					background-color: $bg-navbar;
-					box-shadow: inset 0px 0px 10px silver;
-					color: $text-light;
-					height: 50px;
-					border: none;
+  .form-group {
+    margin: 2rem 0;
+  }
 
-					@include breakpoint-down(xs) {
-						width: 25vw;
-						margin: 0 10px;
-					}
-				}
+  &__container {
+    @include Container;
+    margin-top: 5rem;
+  }
 
-				label {
-					margin-right: 20px;
-					font-weight: bold;
-					font-size: 1.1rem;
-                    color: $text-gray;
-                    text-transform: capitalize;
-				}
-				@include breakpoint-down(xs) {
-					margin-top: 0rem;
-				}
-			}
-		}
-	}
-	.customBtn {
-        margin-top: 1rem;
-		@include breakpoint-down(xs) {
-			font-size: 0.7rem !important;
-            margin-left: 5px;
-            padding: 0.7rem 2rem;
-            
-		}
-	}
+  &__content {
+    .choose__quality {
+      label {
+        margin-bottom: 1.2rem;
+        font-weight: bolder;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+      }
+      input[type="range"] {
+        width: 70% !important;
+        outline: none !important;
+        transition: all 0.7s ease-in;
+        -webkit-appearance: none;
+        height: 10px;
+        border-radius: 10px;
+        background: $text-light;
+        outline: none;
+        opacity: 0.9;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+        display: inline-block;
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 30px;
+          height: 30px;
+          border: none !important;
+          border-radius: 50%;
+          background: $bg-light;
+          cursor: pointer;
+        }
+        @include breakpoint-down(small) {
+          width: 80% !important;
+        }
+        @include breakpoint-down(xs) {
+          width: 62% !important;
+        }
+      }
+      span {
+        margin-left: 20px;
+        font-weight: bolder;
+        @include breakpoint-down(xs) {
+          margin-left: 5px;
+        }
+      }
+      p {
+        margin-top: 10px;
+        color: $text-gray;
+        @include breakpoint-down(xs) {
+          font-size: 0.8rem;
+          width: 80%;
+        }
+      }
+    }
+  }
+  .customBtn {
+    @include breakpoint-down(xs) {
+      font-size: 0.7rem !important;
+    }
+  }
 }

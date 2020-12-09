@@ -1,100 +1,139 @@
-import React, { useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import ReactDropZone from '../ReactDropZone';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import CustomInput from '../../common/CustomInput';
+import React, { useState, useCallback, useEffect } from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ReactDropZone from "../ReactDropZone";
+import CustomInput from "../../common/CustomInput";
+import Video from "../../common/Video";
+import DownloadLink from "../../common/DownloadLink";
+import ConvertNowBtn from "../../common/ConvertNowBtn";
+import CustomProgressBar from "../../common/CustomProgressBar";
+import { fetchFile } from "@ffmpeg/ffmpeg";
+import videoDimensions from "./VideoDimensions";
 
-const Crop = () => {
-	const [videoFile, setVideoFile] = useState();
-	const [progressVisibility, setProgressVisibility] = useState(false);
-	const [completedNow, setCompletedNow] = useState(0);
+const Crop = ({ ffmpeg }) => {
+  const [videoFile, setVideoFile] = useState();
+  const [progressVisibility, setProgressVisibility] = useState(false);
+  const [completedNow, setCompletedNow] = useState(0);
+  const [convertedVideo, setConvertedVideo] = useState();
+  const [selectMenu, setSelectMenu] = useState("426*240");
 
-	const handleCancelBtn = () => {
-		setVideoFile(null);
-	};
+  const convertFun = async (width, height, x, y) => {
+    ffmpeg.FS("writeFile", "test.mp4", await fetchFile(videoFile));
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		let x = e.target.x.value;
-		let y = e.target.y.value;
-		let w = e.target.w.value;
-		let h = e.target.h.value;
+    await ffmpeg.run(
+      "-i",
+      "test.mp4",
+      "-filter:v",
+      `crop=w=${width}:h=${height}:x=${x}:y=${y}`,
+      "out.mp4"
+    );
 
-		setTimeout(() => {
-			setProgressVisibility(true);
-		}, 200);
+    const data = ffmpeg.FS("readFile", "out.mp4");
 
-		console.log(x, y, w, h);
-	};
+    const url = URL.createObjectURL(
+      new Blob([data.buffer], { type: "video/mp4" })
+    );
+    setConvertedVideo(url);
+  };
 
-	console.log('crop video', videoFile);
+  const handleSubmit = e => {
+    e.preventDefault();
 
-	return (
-		<div className="crop">
-			<div className="crop__container">
-				<Row className="align-items-center justify-content-center">
-					<Col md={12} sm={12} lg={6} className="fileuploader__area">
-						{videoFile ? (
-							<figure>
-								<video controls src={URL.createObjectURL(videoFile)} />
-								<button className="cancelVideo" onClick={handleCancelBtn}>
-									X
-								</button>
-							</figure>
-						) : (
-							<ReactDropZone setVideoFile={setVideoFile} />
-						)}
-					</Col>
+    const splitSelectMenu = e.target.selectMenu.value.split("*");
 
-					<Col md={12} sm={12} lg={6}>
-						<div className="crop__content">
-							<div className="options">
-								<h5 className="title text-uppercase">Options:-</h5>
-								<div className="options__container">
-									<form onSubmit={handleSubmit}>
-										<div className="d-flex justify-content-between">
-											<CustomInput name="x" />
-											<CustomInput name="y" />
-										</div>
+    let x = e.target.x.value;
+    let y = e.target.y.value;
+    let w = splitSelectMenu[0];
+    let h = splitSelectMenu[1];
 
-										<div className="d-flex justify-content-between">
-											<CustomInput name="w" />
-											<CustomInput name="h" />
-										</div>
+    setTimeout(() => {
+      setProgressVisibility(true);
+    }, 200);
 
-										<Form.Group>
-											<button type="submit" className="customBtn customBtn__small">
-												Start conversion
-											</button>
-										</Form.Group>
-									</form>
-								</div>
-							</div>
+    console.log(x, y, w, h);
+    convertFun(w, h, x, y);
+  };
 
-							<Form.Group>
-								{progressVisibility && (
-									<ProgressBar animated now={completedNow} label={`${completedNow} %`} />
-								)}
-							</Form.Group>
+  const handleCancelBtn = useCallback(() => {
+    setVideoFile(null);
+    setProgressVisibility(false);
+  }, [setVideoFile]);
 
-							<Form.Group className="download__video">
-								{completedNow === 100 && (
-									<p>
-										Video is successfully converted.{' '}
-										<a href="#" className="downloadLink">
-											Click here to download
-										</a>{' '}
-									</p>
-								)}
-							</Form.Group>
-						</div>
-					</Col>
-				</Row>
-			</div>
-		</div>
-	);
+  const handleSelectMenu = useCallback(
+    e => {
+      console.log(e.target.value);
+      setSelectMenu(e.target.value);
+    },
+    [setSelectMenu]
+  );
+
+  useEffect(() => {
+    ffmpeg.setProgress(({ ratio }) => {
+      console.log("completed now is", parseFloat(ratio) * 100);
+      setCompletedNow(Math.round(parseFloat(ratio) * 100));
+    });
+  }, [ffmpeg]);
+
+  return (
+    <div className="crop">
+      <div className="crop__container">
+        <Row className="align-items-center justify-content-center">
+          <Col md={12} sm={12} lg={6} className="fileuploader__area">
+            {videoFile ? (
+              <Video videoFile={videoFile} handleCancelBtn={handleCancelBtn} />
+            ) : (
+              <ReactDropZone setVideoFile={setVideoFile} />
+            )}
+          </Col>
+
+          <Col md={12} sm={12} lg={6}>
+            <div className="crop__content">
+              <div className="options">
+                <h5 className="title text-uppercase">Options:-</h5>
+
+                <div className="options__container">
+                  <form onSubmit={handleSubmit}>
+                    <div className="d-flex justify-content-between">
+                      <CustomInput name="x" initialValue={100} />
+                      <CustomInput name="y" initialValue={200} />
+                    </div>
+
+                    <div className="customSelectMenu my-3">
+                      <label htmlFor="AspectRatio">Video Dimensions:-</label>
+                      <select
+                        id="AspectRatio"
+                        value={selectMenu}
+                        name="selectMenu"
+                        onChange={handleSelectMenu}>
+                        {videoDimensions.map(({ name, ratio }, i) => (
+                          <option key={i} value={ratio}>
+                            {`${ratio}(${name})`}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <ConvertNowBtn videoFile={videoFile} />
+                  </form>
+                </div>
+              </div>
+
+              <CustomProgressBar
+                progressVisibility={progressVisibility}
+                completedNow={completedNow}
+              />
+
+              <DownloadLink
+                completedNow={completedNow}
+                convertedVideo={convertedVideo}
+                videoFile={videoFile}
+              />
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
 };
 
 export default Crop;

@@ -1,0 +1,45 @@
+.gif {
+  color: $text-light;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw !important;
+
+  .form-group {
+    margin: 2rem 0;
+  }
+
+  &__container {
+    @include Container;
+    margin-top: 2rem;
+    margin-left: -2rem !important;
+
+    figure {
+      max-width: 30vw;
+      max-height: 50vh;
+    }
+    @include breakpoint-down(xs) {
+      margin-top: 8rem;
+      figure {
+        min-width: 50vw;
+      }
+      .file__input {
+        width: 122%;
+        height: 40vh !important;
+      }
+    }
+  }
+
+  &__content {
+    p {
+      margin: 2rem 0;
+      width: 120%;
+      font-size: 0.8rem;
+    }
+  }
+
+  .customBtn {
+    @include breakpoint-down(xs) {
+      font-size: 0.7rem !important;
+    }
+  }
+}
