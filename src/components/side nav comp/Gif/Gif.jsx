@@ -4,10 +4,10 @@ import Col from "react-bootstrap/Col";
 import ReactDropZone from "../ReactDropZone";
 import { fetchFile } from "@ffmpeg/ffmpeg";
 import Video from "../../common/Video";
-import DownloadLink from "../../common/DownloadLink";
 import ConvertNowBtn from "../../common/ConvertNowBtn";
 import CustomProgressBar from "../../common/CustomProgressBar";
 import Form from "react-bootstrap/Form";
+import MainTitle from "../../common/MainTitle";
 
 const Gif = ({ ffmpeg }) => {
   const [videoFile, setVideoFile] = useState();
@@ -54,6 +54,7 @@ const Gif = ({ ffmpeg }) => {
   const handleCancelBtn = useCallback(() => {
     setVideoFile(null);
     setProgressVisibility(false);
+    window.location.reload();
   }, [setVideoFile]);
 
   const handleSubmit = e => {
@@ -68,6 +69,8 @@ const Gif = ({ ffmpeg }) => {
 
   return (
     <div className="gif">
+      <MainTitle title="Gif Converter" />
+
       <div className="gif__container">
         <Row className="align-items-center justify-content-center mx-5">
           <Col lg={12} sm={12} className="fileuploader__area">

@@ -3,11 +3,12 @@
   color: $text-light;
 
   &__videoder {
+    margin-top: 5rem;
     width: 80%;
     border-radius: 10px;
     min-height: 25vh;
     @include breakpoint-down(xs) {
-      width: 70%;
+      width: 80%;
     }
 
     background-color: $bg-navbar;
@@ -21,9 +22,7 @@
       }
       @include breakpoint-down(small) {
         font-size: 1.4rem;
-      }
-      @include breakpoint-down(small) {
-        font-size: 1.2rem;
+        line-height: 2.1rem;
       }
     }
     .content {
@@ -35,14 +34,8 @@
       padding-bottom: 20px;
 
       @include breakpoint-down(small) {
-        font-size: 0.8rem;
-        line-height: 2rem;
-        padding-right: 0rem;
-        letter-spacing: 1px;
-      }
-      @include breakpoint-down(small) {
         width: 100%;
-        font-size: 0.7rem;
+        font-size: 0.9rem;
         padding-right: 0;
         line-height: 2rem;
       }
@@ -60,8 +53,8 @@
       span {
         color: $bg-light;
       }
-      @include breakpoint-down(xs) {
-        font-size: 1.2rem;
+      @include breakpoint-down(small) {
+        font-size: 1.4rem;
         line-height: 2rem;
       }
     }

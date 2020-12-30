@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router-dom";
@@ -8,19 +8,8 @@ const Home = () => {
 
   const handleKnowMoreBtn = () => history.push("/about");
 
-  const mobileWidth = 600;
-
-  useEffect(() => {
-    document.querySelector(".Home").style.overFlow = "hidden";
-  }, []);
-
   return (
-    <div
-      className="Home"
-      style={{
-        maxHeight: "90vh",
-        overflow: window.innerWidth <= mobileWidth ? "hidden" : "auto",
-      }}>
+    <div className="Home">
       <div className="Home__container">
         <Row
           className="hero"

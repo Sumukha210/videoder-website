@@ -1,59 +1,70 @@
 .Home {
   position: relative;
   color: $text-light;
-  max-height: 100vh;
-  overflow: hidden !important;
+  min-height: 100vh;
 
   &__container {
     @include Container;
-    margin-top: 3rem;
-    @include breakpoint-down(xs) {
-      margin-top: 0rem;
+    margin-top: 5rem;
+    @include breakpoint-down(medium) {
+      margin-top: 8rem;
     }
   }
 
   &__title {
-    margin-bottom: 2rem;
-    font-size: $heading-1;
+    margin-bottom: 2.5rem;
     font-style: normal;
     font-weight: bold;
     letter-spacing: 2px;
+    line-height: 4rem;
+    font-size: 3rem;
+    width: 80%;
     @include breakpoint-down(medium) {
       width: 80%;
+      line-height: 4rem;
     }
 
     @include breakpoint-down(small) {
-      width: 80%;
-      font-size: $heading-2;
+      width: 90%;
+      font-size: 2rem;
     }
     @include breakpoint-down(xs) {
-      margin-top: 4rem;
-      font-size: 1.4rem;
-      width: 70%;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      letter-spacing: 1;
+      width: 80%;
     }
   }
 
   &__subtitle {
-    font-size: $heading-3;
+    font-size: $heading-4;
     font-style: normal;
     font-weight: bold;
     color: $text-gray;
-
-    @include breakpoint-down(medium) {
-      width: 70%;
-    }
+    letter-spacing: 2px;
+    line-height: 2.2rem;
+    // @include breakpoint-down(medium) {
+    //   width: 70%;
+    // }
 
     @include breakpoint-down(small) {
       font-size: $heading-4;
-      width: 60%;
+      width: 80%;
     }
-    @include breakpoint-down(xs) {
-      width: 70%;
-    }
+    // @include breakpoint-down(xs) {
+    //   width: 70%;
+    // }
   }
 
   .customBtn {
     margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+
+    @include breakpoint-down(xs) {
+      padding: 0.8rem 1.6rem;
+      font-size: 0.8rem;
+    }
   }
 
   .hero__img {

@@ -9,6 +9,7 @@ import DownloadLink from "../../common/DownloadLink";
 import ConvertNowBtn from "../../common/ConvertNowBtn";
 import CustomProgressBar from "../../common/CustomProgressBar";
 import RangeSlider from "../../common/RangeSlider";
+import MainTitle from "../../common/MainTitle";
 
 const Rotate = ({ ffmpeg }) => {
   const [videoFile, setVideoFile] = useState();
@@ -59,6 +60,7 @@ const Rotate = ({ ffmpeg }) => {
   const handleCancelBtn = useCallback(() => {
     setVideoFile(null);
     setProgressVisibility(false);
+    window.location.reload();
   }, [setVideoFile]);
 
   const handleSubmit = e => {
@@ -76,6 +78,7 @@ const Rotate = ({ ffmpeg }) => {
   return (
     <div className="rotate">
       <div className="rotate__container">
+        <MainTitle title="Rotate" />
         <Row className="align-items-center justify-content-center">
           <Col md={12} sm={12} lg={6} className="fileuploader__area">
             {videoFile ? (

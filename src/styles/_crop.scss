@@ -10,6 +10,7 @@
 
   &__content {
     .options {
+      margin-top: 3rem;
       .title {
         letter-spacing: 1px;
         position: relative;
@@ -30,7 +31,7 @@
         }
       }
       &__container {
-        margin-top: 2rem;
+        margin-top: 4rem;
         margin-bottom: 1rem;
         width: 60%;
         input[type="number"] {

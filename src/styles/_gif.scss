@@ -8,6 +8,15 @@
     margin: 2rem 0;
   }
 
+  .main__title {
+    padding: 0 1rem;
+    @include breakpoint-down(small) {
+      font-size: 1.3rem;
+      width: 80%;
+      line-height: 2.5rem;
+    }
+  }
+
   &__container {
     @include Container;
     margin-top: 2rem;

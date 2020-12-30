@@ -1,0 +1,53 @@
+.Info {
+  @include Container;
+  color: $text-light;
+
+  &__videoder {
+    margin-top: 6rem;
+    width: 80%;
+    border-radius: 10px;
+    min-height: 25vh;
+    background-color: $bg-navbar;
+    @include breakpoint-down(xs) {
+      width: 80%;
+    }
+
+    .title {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+      font-style: normal;
+      padding-top: 1rem;
+      color: $bg-light;
+
+      @include breakpoint-down(small) {
+        font-size: 1.4rem;
+        line-height: 2.1rem;
+      }
+    }
+
+    .content {
+      padding-top: 1.1rem;
+      color: $text-gray;
+      padding-right: 3rem;
+      letter-spacing: 1px;
+      line-height: 2.3rem;
+      padding-bottom: 20px;
+
+      @include breakpoint-down(small) {
+        width: 100%;
+        font-size: 0.9rem;
+        padding-right: 0;
+        line-height: 2rem;
+      }
+    }
+
+    &:not(:nth-child(1)) {
+      margin-top: 2rem;
+    }
+
+    &:last-child {
+      margin-bottom: 3rem;
+    }
+  }
+}

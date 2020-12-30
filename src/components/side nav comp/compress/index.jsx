@@ -9,6 +9,7 @@ import DownloadLink from "../../common/DownloadLink";
 import ConvertNowBtn from "../../common/ConvertNowBtn";
 import CustomProgressBar from "../../common/CustomProgressBar";
 import RangeSlider from "../../common/RangeSlider";
+import MainTitle from "../../common/MainTitle";
 
 const Compress = ({ ffmpeg }) => {
   const [videoFile, setVideoFile] = useState();
@@ -53,6 +54,7 @@ const Compress = ({ ffmpeg }) => {
   const handleCancelBtn = useCallback(() => {
     setVideoFile(null);
     setProgressVisibility(false);
+    window.location.reload();
   }, [setVideoFile, setProgressVisibility]);
 
   const handleSubmit = e => {
@@ -70,6 +72,8 @@ const Compress = ({ ffmpeg }) => {
   return (
     <div className="compress">
       <div className="compress__container">
+        <MainTitle title="Compress" />
+
         <Row className="align-items-center justify-content-center">
           <Col md={12} sm={12} lg={6} className="fileuploader__area">
             {videoFile ? (

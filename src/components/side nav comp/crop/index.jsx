@@ -9,6 +9,7 @@ import ConvertNowBtn from "../../common/ConvertNowBtn";
 import CustomProgressBar from "../../common/CustomProgressBar";
 import { fetchFile } from "@ffmpeg/ffmpeg";
 import videoDimensions from "./VideoDimensions";
+import MainTitle from "../../common/MainTitle";
 
 const Crop = ({ ffmpeg }) => {
   const [videoFile, setVideoFile] = useState();
@@ -57,6 +58,7 @@ const Crop = ({ ffmpeg }) => {
   const handleCancelBtn = useCallback(() => {
     setVideoFile(null);
     setProgressVisibility(false);
+    window.location.reload();
   }, [setVideoFile]);
 
   const handleSelectMenu = useCallback(
@@ -77,6 +79,7 @@ const Crop = ({ ffmpeg }) => {
   return (
     <div className="crop">
       <div className="crop__container">
+        <MainTitle title="Crop" />
         <Row className="align-items-center justify-content-center">
           <Col md={12} sm={12} lg={6} className="fileuploader__area">
             {videoFile ? (
