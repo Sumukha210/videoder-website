@@ -78,12 +78,6 @@ const App = () => {
                 <CustomRoute path="/gif">
                   <Gif ffmpeg={ffmpeg} />
                 </CustomRoute>
-
-                <Route
-                  render={() => (
-                    <h1 className="not__found">404,page not found</h1>
-                  )}
-                />
               </Suspense>
             </Switch>
           </div>

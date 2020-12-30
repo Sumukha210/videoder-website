@@ -13,20 +13,6 @@ body {
   overflow-x: hidden;
 }
 
-.not__found {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  line-height: 3rem;
-  @include Flex(row, center);
-  text-align: center;
-  min-height: 100vh;
-  color: $bg-light;
-  @include breakpoint-down(small) {
-    width: 70%;
-    font-size: 1.6rem;
-  }
-}
-
 .main__title {
   margin-top: 6rem;
   text-transform: uppercase;
