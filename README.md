@@ -16,7 +16,7 @@
 
 ## About The Project:-
 
-![Home page](https://raw.githubusercontent.com/Sumukha210/countries/master/public/home-page.png "videoder home page")
+![Home page](https://github.com/Sumukha210/videoder-website/blob/master/public/images/homepage.png?raw=true "videoder home page")
 
 Videoder is a simple, easy to use online video editor. Many video editing websites on online are either bloated with ads or virus and they take much time to edit videos and also most of them are not completly free to use, whereas videos is completly free from ads, virus's and they take less time to compress, rotate, crop videos. It can also convert videos to gif's. The only problem is browser support, many old browser doesn't support ffmpeg(Wasm).
 
