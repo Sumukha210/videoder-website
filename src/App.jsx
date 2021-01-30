@@ -42,7 +42,7 @@ const App = () => {
         ready ? (
           children
         ) : (
-          <ErrorMessage message="your browser is not supported" />
+          <ErrorMessage message="Please wait for few seconds" />
         )
       }
     />
